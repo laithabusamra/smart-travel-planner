@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="add-trip-container">
+  
+  <form method="POST" class="add-trip-card">
+    <h2 class="page-title">Edit Your Review</h2>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-primary">Save Changes</button>
+  </form>
+</div>
+</div>
+{% endblock %}

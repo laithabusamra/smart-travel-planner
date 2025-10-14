@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="my-trips-container">
+  <h1 class="page-title">My Trips</h1>
+
+  {% if my_trips %}
+  <div class="trip-cards">
+    {% for trip in my_trips %}
+    <div class="trip-card">
+        <h2>{{ trip.title }}</h2>
+        <p class="trip-destination">📍 {{ trip.destination }}</p>
+      <p class="trip-date">🗓 {{ trip.start_date }} → {{ trip.end_date }}</p>
+      <p class="trip-budget">💰 {{ trip.budget }} JD</p>
+      {% if trip.description %}
+      <p class="trip-desc">{{ trip.description }}</p>
+      {% endif %}
+      <p class="trip-visibility">🔒 Visibility: {{ trip.is_public|yesno:"Public,Private" }}</p>
+
+      <div class="trip-actions">
+        <a href="{% url 'trip_update' trip.id %}" class="btn-primary update-btn">Update</a>
+        <a href="{% url 'trip_delete' trip.id %}" class="btn-primary delete-btn">Delete</a>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="no-trips">No trips yet 😢</p>
+  {% endif %}
+</div>
+{% endblock %}

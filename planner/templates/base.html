@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Smart Travel Planner{% endblock %}</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/add_trip.css' %}">
+<link rel="stylesheet" href="{% static 'css/public_trips.css' %}">
+
+
+</head>
+<body>
+<header class="site-header">
+    <div class = "header-inner">
+        <a href="{% url "home" %}" class= "brand">SmartTravel</a>
+        <nav>
+            <ul class="nav-list">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url "home" %}">Home</a></li>
+                    <li><a href="{% url "public_trips" %}">Public Trips</a></li>
+                    <li><a href="{% url "my_trips" %}">My Trips</a></li>
+                    <li><a href="{% url "add_trip" %}">New Trips</a></li>
+                    <li>
+                        <form id="logout-form" method= "post" action="{% url "logout" %}">
+                            {% csrf_token %}
+                        <button type="submit">logout</button>
+                        </form>
+                    </li>
+            {% else %}
+                <li><a href="{% url "login" %}">Login</a></li>
+                <li><a href="{% url "signup" %}">signup</a></li>
+                <li><a href="{% url "home" %}">Home</a></li>
+                <li><a href="{% url "public_trips" %}">Public Trips</a></li>
+            {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    {% block content %}{% endblock  %}
+</main>
+</body>
+</html>

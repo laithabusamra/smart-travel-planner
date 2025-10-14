@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/add_trip.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="add-trip-container">
+    <div class="add-trip-card">
+        <h1 class="page-title">Create New Trip</h1>
+        <p class="page-subtitle">Plan your next adventure with all the details that matter</p>
+        
+        <form method="post" class="trip-form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            
+            <div class="input-grid">
+                <div class="form-group">
+                    {{ form.title.label_tag }}
+                    {{ form.title }}
+                    {{ form.title.errors }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form.destination.label_tag }}
+                    {{ form.destination }}
+                    {{ form.destination.errors }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form.start_date.label_tag }}
+                    {{ form.start_date }}
+                    {{ form.start_date.errors }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form.end_date.label_tag }}
+                    {{ form.end_date }}
+                    {{ form.end_date.errors }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form.budget.label_tag }}
+                    {{ form.budget }}
+                    {{ form.budget.errors }}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+            
+            <div class="checkbox-group">
+                {{ form.is_public }}
+                <label for="{{ form.is_public.id_for_label }}">Make this trip public</label>
+                {{ form.is_public.errors }}
+            </div>
+            
+            <div class="btn-container">
+                <button type="submit" class="btn-primary">Create Trip</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

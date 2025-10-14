@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<div class="add-trip-container">
+<form method="post" class="add-trip-card">
+    <h1 class="page-title">Update Trip </h1>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-primary">Save Changes</button>
+</form>
+</div>
+</div>
+{% endblock %}

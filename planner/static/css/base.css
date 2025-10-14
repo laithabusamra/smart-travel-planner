@@ -1,0 +1,134 @@
+:root {
+    --primary: #176c6b;
+    --primary-2: #12948b;
+    --bg: #f6f7f8;
+    --card: #ffffff;
+    --muted: #6c757d;
+    --logout-color: #721818;
+    --accent: #e76f51;
+    --dark: #102a30;
+    --radius: 14px;
+    --shadow: 0 8px 28px rgba(16, 42, 48, 0.06);
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    background: var(--bg);
+    color: #111;
+    font-size: 16px;
+}
+
+.container {
+    padding: 1rem 2rem;
+    width: 100%;
+    margin: 0;
+    max-width: none;
+}
+
+.site-header {
+    background: var(--card);
+    border-bottom: 1px solid #e6e6e6;
+    width: 100%;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 2rem;
+}
+
+.brand {
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: .8rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: var(--muted);
+    padding: 0.4rem 0.6rem;
+    display: block;
+}
+
+.card {
+    background: var(--card);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .04);
+    margin-bottom: 1rem;
+}
+
+.card.small {
+    padding: .6rem
+}
+
+.btn {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: .5rem .9rem;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+}
+
+@media(min-width:768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .header-inner {
+        padding: .6rem 1rem;
+    }
+}
+
+.site-footer {
+    padding: 1rem 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+#logout-form {
+    display: inline;
+    margin: 0;
+}
+
+#logout-form button {
+    color: var(--logout-color);
+    font-weight: 600;
+    font-size: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    font-family: inherit;
+    transition: color 0.2s ease;
+}
+
+#logout-form button:hover {
+    color: var(--link-hover-color);
+}

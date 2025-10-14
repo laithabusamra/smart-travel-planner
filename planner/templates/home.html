@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <h1>Plan Your Perfect Trip with Ease</h1>
+    <p>Smart Travel Planner helps you discover amazing destinations, create personalized itineraries, and book everything in one place.</p>
+  </div>
+</section>
+
+<section class="container">
+  <div class="section-title">
+    <h2>Why Choose Smart Travel Planner?</h2>
+    <p>Our platform offers everything you need to plan your dream vacation</p>
+  </div>
+  <div class="features">
+    <div class="feature-card">
+        <div class="feature-icon">
+            💲
+        </div>
+        <h3>Best Price Guarantee</h3>
+        <p>We compare prices across hundreds of sites to ensure you get the best deals.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">
+            👥
+        </div>
+        <h3>Local Experts</h3>
+        <p>Connect with local guides and get insider tips for an authentic experience.</p>
+    </div>
+</div>
+  </div>
+</section>
+
+<section class="container destinations">
+  <div class="section-title">
+    <h2>Public Trips</h2>
+    <p>Explore trips shared by travelers from around the world</p>
+  </div>
+
+  {% if public_trips %}
+  <div class="destination-grid">
+    {% for trip in public_trips %}
+    <div class="destination-card">
+      <div class="destination-info">
+        <h3>{{ trip.title }}</h3>
+        <p>Destination: {{ trip.destination }}</p>
+        <p>By: {{ trip.user.username }}</p>
+        <div class="price">Budget: ${{ trip.budget }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p style="text-align:center; color: var(--gray);">No public trips yet. Be the first to share one!</p>
+  {% endif %}
+</section>
+
+
+<section class="container">
+  <div class="cta">
+    <h2>Ready to Start Your Journey?</h2>
+    <p>Join thousands of travelers who have discovered their perfect trips with our platform</p>
+    <a href="{% url 'signup' %}" class="cta-btn">Create Your Free Account</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container footer-content">
+    <div class="footer-column">
+      <h3>Smart Travel Planner</h3>
+      <p>Your ultimate companion for planning and reviewing travel experiences.</p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'public_trips' %}">Public Trips</a></li>
+        <li><a href="{% url 'add_trip' %}">New Trip</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="copyright">
+    <p>&copy; 2025 Smart Travel Planner. All rights reserved.</p>
+  </div>
+</footer>
+
+{% endblock %}

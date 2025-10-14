@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="add-trip-container">
+
+<form method="post" class="add-trip-card">
+<h1 class="page-title"> Delete Trip</h1>
+<p>Are you sure you want to delete "{{ object.title }}"?</p>
+{% csrf_token %}
+<button type="submit" class="btn-primary">Yes, Delete </button>
+<a href="{% url 'my_trips' %}" class="btn-primary delte-btn">Cancle</a>
+</form>
+{% endblock %}

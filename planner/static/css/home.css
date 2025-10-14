@@ -1,0 +1,255 @@
+:root {
+    --primary: #176c6b;
+    /* deep teal */
+    --primary-2: #12948b;
+    /* accent teal */
+    --accent: #e76f51;
+    /* warm coral */
+    --muted: #6c757d;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --dark: #102a30;
+    --radius: 14px;
+    --shadow: 0 8px 28px rgba(16, 42, 48, 0.06);
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.hero {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background: linear-gradient(135deg, var(--primary), var(--primary-2));
+    color: white;
+    padding: 84px 24px;
+    border-radius: 0 0 24px 24px;
+    margin-bottom: 48px;
+    text-align: center;
+}
+
+
+.hero h1 {
+    font-size: 2.6rem;
+    margin-bottom: 12px;
+    line-height: 1.08;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.92);
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+
+.section-title {
+    text-align: center;
+    margin: 48px 0 28px;
+}
+
+.section-title h2 {
+    font-size: 1.8rem;
+    color: var(--dark);
+    margin-bottom: 8px;
+}
+
+.section-title p {
+    color: var(--muted);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+
+.features {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    margin-bottom: 40px;
+}
+
+.feature-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(16, 42, 48, 0.08);
+}
+
+.feature-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(18, 148, 139, 0.08);
+}
+
+
+.destination-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    margin-bottom: 40px;
+}
+
+.destination-card {
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform .18s ease;
+}
+
+.destination-card:hover {
+    transform: translateY(-6px);
+}
+
+.destination-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+}
+
+.destination-info {
+    padding: 16px 18px;
+}
+
+.destination-info h3 {
+    margin: 0 0 6px;
+    color: var(--dark);
+    font-size: 1.05rem;
+}
+
+.destination-info p {
+    margin: 0 0 8px;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.price {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+
+.cta {
+    text-align: center;
+    padding: 44px 24px;
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 48px;
+}
+
+.cta h2 {
+    margin-bottom: 8px;
+    color: var(--dark);
+    font-size: 1.5rem;
+}
+
+.cta p {
+    color: var(--muted);
+    margin-bottom: 16px;
+}
+
+.cta .cta-btn {
+    display: inline-block;
+    background: var(--primary-2);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background .18s ease, transform .12s ease;
+}
+
+.cta .cta-btn:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+}
+
+
+footer {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background: var(--dark);
+    color: white;
+    padding: 60px 24px 40px;
+    border-radius: 24px 24px 0 0;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 28px;
+}
+
+.footer-column h3 {
+    margin-bottom: 12px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column li {
+    margin-bottom: 8px;
+}
+
+.footer-column a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-size: 0.96rem;
+    display: inline-block;
+}
+
+.footer-column a:hover {
+    color: white;
+    transform: translateX(3px);
+}
+
+/* Responsive tweaks */
+@media (max-width:880px) {
+    .hero {
+        padding: 56px 18px;
+    }
+
+    .hero h1 {
+        font-size: 1.9rem;
+    }
+
+    .container {
+        padding: 18px;
+    }
+}
