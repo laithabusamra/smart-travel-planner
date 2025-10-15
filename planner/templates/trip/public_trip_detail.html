@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/public_trips.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="public-trips-container">
+  <div class="trip-card">
+    <div class="trip-header">
+      <h1 class="page-title">{{ trip.title }}</h1>
+      <p class="trip-author">By <strong>{{ trip.user.username }}</strong></p>
+    </div>
+
+    <p class="trip-destination">📍 {{ trip.destination }}</p>
+    <p class="trip-date">🗓 {{ trip.start_date }} → {{ trip.end_date }}</p>
+    <p class="trip-budget">💰 {{ trip.budget }} JD</p>
+
+    {% if trip.description %}
+    <p class="trip-desc">{{ trip.description }}</p>
+    {% endif %}
+
+    <div class="reviews-section">
+      <h2>💬 Reviews</h2>
+
+      {% if reviews %}
+        {% for review in reviews %}
+        <div class="review-card">
+          <div class="review-header">
+            <strong>{{ review.user.username|default:"Anonymous" }}</strong>
+            <span class="review-rating">⭐ {{ review.rating }}/5</span>
+          </div>
+          <p class="review-text">{{ review.comment }}</p>
+          <small class="review-date">{{ review.created_at|date:"M d, Y" }}</small>
+
+          {% if user.is_authenticated and review.user == user %}
+          <div class="review-actions">
+            <a href="{% url 'update_review' review.id %}" class="btn-edit">Edit</a>
+            <form method="POST" action="{% url 'delete_review' review.id %}" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn-delete">Delete</button>
+            </form>
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      {% else %}
+        <p class="no-reviews">No reviews yet. Be the first to leave one!</p>
+      {% endif %}
+
+      {% if user.is_authenticated %}
+      <div class="review-form-container">
+        <h3>Leave a Review</h3>
+        <form method="post" class="review-form">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn-primary">Submit Review</button>
+        </form>
+      </div>
+      {% else %}
+        <p class="login-prompt">🔒 <a href="{% url 'login' %}">Login</a> to leave a review.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -62,13 +63,14 @@ def login_view(request):
     return render(request, 'registration/login.html')
 
 
-
-@login_required
+# home page
 def home_view(request):
    public_trips = Trip.objects.filter(is_public=True).order_by('-created_at')
    review_form = ReviewForm()
    return render(request,'home.html', {'public_trips': public_trips, 'review_form': review_form})
 
+# my trip 
+@login_required
 def mytrips_view(request):
     my_trips = Trip.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'trip/my_trip.html', {'my_trips': my_trips})
@@ -97,6 +99,31 @@ def public_trips(request):
         'form': form
     })
 
+# detail page
+def public_trip_detail(request, trip_id):
+    trip = get_object_or_404(Trip, id=trip_id, is_public=True)
+    reviews = trip.reviews.all()
+    form = ReviewForm()
+
+    # Handle adding review
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect('login')
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.trip = trip
+            review.user = request.user
+            review.save()
+            return redirect('public_trip_detail', trip_id=trip.id)
+
+    return render(request, 'trip/public_trip_detail.html', {
+        'trip': trip,
+        'reviews': reviews,
+        'form': form
+    })
+
+
 
 @login_required
 def update_review(request, review_id):
@@ -105,7 +132,7 @@ def update_review(request, review_id):
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
             form.save()
-            return redirect('public_trips')
+            return redirect('public_trip_detail', trip_id=review.trip.id)
     else:
         form = ReviewForm(instance=review)
     return render(request, 'trip/update_review.html', {'form': form})
@@ -114,8 +141,9 @@ def update_review(request, review_id):
 def delete_review(request, review_id):
     review = get_object_or_404(Review, id=review_id, user=request.user)
     if request.method == "POST":
+        trip_id = review.trip.id
         review.delete()
-        return redirect('public_trips')
+        return redirect('public_trip_detail', trip_id=trip_id)
     
     return render(request, 'trip/delete_review.html',{'review': review})
 
@@ -134,17 +162,18 @@ def add_trip(request):
     
     return render(request, "trip/add_trip.html",{'form': form})
 
-class TripUdateView(UpdateView):
+class TripUdateView(LoginRequiredMixin,UpdateView):
     model = Trip
     fields = ['title', 'budget', 'destination', 'start_date', 'end_date', 'description', 'is_public']
     template_name = 'trip/trip_form.html'
     success_url = reverse_lazy('my_trips')
 
-class TripDeleteView(DeleteView):
+class TripDeleteView(LoginRequiredMixin,DeleteView):
     model = Trip
     template_name ='trip/trip_confirm_delete.html'
     success_url = reverse_lazy('my_trips')
 
+@login_required
 def logout_view(request):
     """
     Logs out the current user and redirects to login page.

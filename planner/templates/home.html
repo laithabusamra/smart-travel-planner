@@ -46,6 +46,7 @@
   {% if public_trips %}
   <div class="destination-grid">
     {% for trip in public_trips %}
+    <a href="{% url 'public_trip_detail' trip.id %}" class="destination-link">
     <div class="destination-card">
       <div class="destination-info">
         <h3>{{ trip.title }}</h3>
@@ -54,6 +55,7 @@
         <div class="price">Budget: ${{ trip.budget }}</div>
       </div>
     </div>
+  </a>
     {% endfor %}
   </div>
   {% else %}
