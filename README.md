@@ -16,7 +16,7 @@ Smart Travel Planner is a web application designed to help user plan their trips
 - Database: SQLite (Django default database)
 
 ## **ERD**
-
+![Image](https://github.com/user-attachments/assets/7cfb1a0c-1eec-4c74-a5a4-ca33ea09f62a)
 ### Description:
 - Each user can create multiple trips.
 - Trips can be public or private.
